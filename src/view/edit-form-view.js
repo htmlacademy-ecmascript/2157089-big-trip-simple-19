@@ -156,7 +156,7 @@ function createNewEditFormTemplate() {
             </form>`);
 }
 
-class NewTaskEditFormView {
+class NewPointEditFormView {
   getTemplate() {
     return createNewEditFormTemplate();
   }
@@ -174,4 +174,4 @@ class NewTaskEditFormView {
   }
 }
 
-export { NewTaskEditFormView };
+export { NewPointEditFormView };

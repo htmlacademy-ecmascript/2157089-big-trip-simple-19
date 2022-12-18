@@ -16,7 +16,7 @@ function createNewFilterTemplate() {
           </form>`);
 }
 
-class NewTaskFilterView {
+class NewPointFilterView {
   getTemplate() {
     return createNewFilterTemplate();
   }
@@ -34,4 +34,4 @@ class NewTaskFilterView {
   }
 }
 
-export { NewTaskFilterView };
+export { NewPointFilterView };

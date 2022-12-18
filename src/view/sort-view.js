@@ -29,7 +29,7 @@ function createNewSortTemplate() {
         </form>`);
 }
 
-class NewTaskSortView {
+class NewPointSortView {
   getTemplate() {
     return createNewSortTemplate();
   }
@@ -47,4 +47,4 @@ class NewTaskSortView {
   }
 }
 
-export { NewTaskSortView };
+export { NewPointSortView };

@@ -33,7 +33,7 @@ function createNewWaypointTemplate() {
             </li>`);
 }
 
-class NewTaskWaypointView {
+class NewPointWaypointView {
   getTemplate() {
     return createNewWaypointTemplate();
   }
@@ -51,4 +51,4 @@ class NewTaskWaypointView {
   }
 }
 
-export { NewTaskWaypointView };
+export { NewPointWaypointView };

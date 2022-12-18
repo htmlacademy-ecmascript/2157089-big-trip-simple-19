@@ -164,7 +164,7 @@ function createNewFormTemplate() {
   </form>`);
 }
 
-class NewTaskFormView {
+class NewPointFormView {
   getTemplate() {
     return createNewFormTemplate();
   }
@@ -182,4 +182,4 @@ class NewTaskFormView {
   }
 }
 
-export { NewTaskFormView };
+export { NewPointFormView };
