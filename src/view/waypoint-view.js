@@ -9,7 +9,7 @@ const renderOffersForPointType = (offers) => offers.map((offer) => `<li class="e
   <span class="event__offer-price">${offer.price}</span>
   </li>`).join('');
 
-const createDestinationTemplate = (point) => {
+const createPointTemplate = (point) => {
   const offersForPointType = getOffersForPointType(point);
   const {basePrice, dateFrom, dateTo, type} = point;
   return `<li class="trip-events__item"><div class="event">
@@ -38,23 +38,30 @@ const createDestinationTemplate = (point) => {
 </div></li>`;
 };
 
-export default class DestinationItemView {
+export default class PointView {
+  #element = null;
+  #point = null;
+
   constructor (point) {
-    this.point = point;
+    this.#point = point;
   }
 
-  getTemplate () {
-    return createDestinationTemplate(this.point);
+  get template () {
+    return createPointTemplate(this.#point);
   }
 
-  getElement () {
-    if (!this.element) {
-      this.element = createElement(this.getTemplate());
+  get element () {
+    if (!this.#element) {
+      this.#element = createElement(this.template);
     }
-    return this.element;
+    return this.#element;
+  }
+
+  get editButton () {
+    return this.element.querySelector('.event__rollup-btn');
   }
 
   removeElement () {
-    this.element = null;
+    this.#element = null;
   }
 }
