@@ -1,5 +1,5 @@
 import FilterView from './view/filter-view.js';
-import ListSortView from './view/sort-view.js';
+import ListSortView from './view/List-Sort-View.js';
 import { render } from './render.js';
 import Presenter from './presenter/presenter.js';
 import PointsModel from './model/points-model.js';

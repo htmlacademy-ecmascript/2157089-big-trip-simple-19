@@ -1,7 +1,8 @@
 import PointsListView from '../view/point-list-view.js';
-import AddNewPointView from '../view/create-form-view.js';
-import EditPointView from '../view/edit-form-view.js';
-import PointView from '../view/waypoint-view.js';
+import AddNewPointView from '../view/add-new-point-view.js';
+import EditPointView from '../view/edit-point-view.js';
+import PointView from '../view/point-view.js';
+import EmptyPointsView from '../view/empty-points-view.js';
 import { render } from '../render.js';
 
 export default class PointsListPresenter {
@@ -11,6 +12,8 @@ export default class PointsListPresenter {
   #points = [];
 
   #pointsListComponent = new PointsListView();
+  #noPointsMessageComponent = new EmptyPointsView();
+
 
   constructor(pointListContainer, pointsModel) {
     this.#pointListContainer = pointListContainer;
@@ -59,10 +62,14 @@ export default class PointsListPresenter {
   init () {
     this.#points = [...this.#pointsModel.points];
 
-    render(this.#pointsListComponent, this.#pointListContainer);
-
-    for (const point of this.#points) {
-      this.#renderPoint(point);
+    if(this.#points.length === 0) {
+      render(this.#noPointsMessageComponent, this.#pointListContainer);
+    }
+    else {
+      render(this.#pointsListComponent, this.#pointListContainer);
+      for (const point of this.#points) {
+        this.#renderPoint(point);
+      }
     }
   }
 
