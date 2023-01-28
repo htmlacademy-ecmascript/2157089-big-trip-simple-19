@@ -1,4 +1,4 @@
-import { createElement } from '../render.js';
+import AbstractView from '../framework/view/abstract-view.js';
 import { humanizeDate, capitalizeFirstLetter } from '../utils.js';
 import { DATE_FORMAT_DAY_AND_MONTH, DATE_FORMAT_TIME_ONLY } from '../const.js';
 import { getOffersForPointType, getDestinationForPointId } from '../mock/mockData.js';
@@ -38,30 +38,18 @@ const createPointTemplate = (point) => {
 </div></li>`;
 };
 
-export default class PointView {
-  #element = null;
+export default class PointView extends AbstractView {
   #point = null;
+  #editButtonClickHandler = null;
 
-  constructor (point) {
+  constructor (point, onEdit) {
+    super();
     this.#point = point;
+    this.#editButtonClickHandler = onEdit;
+    this.element.querySelector('.event__rollup-btn').addEventListener('click', this.#editButtonClickHandler);
   }
 
   get template () {
     return createPointTemplate(this.#point);
-  }
-
-  get element () {
-    if (!this.#element) {
-      this.#element = createElement(this.template);
-    }
-    return this.#element;
-  }
-
-  get editButton () {
-    return this.element.querySelector('.event__rollup-btn');
-  }
-
-  removeElement () {
-    this.#element = null;
   }
 }

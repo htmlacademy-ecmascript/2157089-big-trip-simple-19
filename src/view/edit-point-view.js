@@ -1,4 +1,4 @@
-import { createElement } from '../render.js';
+import AbstractView from '../framework/view/abstract-view.js';
 import { humanizeDate } from '../utils.js';
 import { DATE_FORMAT_DATE_AND_TIME } from '../const.js';
 import {
@@ -135,34 +135,24 @@ const createEditPointTemplate = (point) => {
 </form></li>`;
 };
 
-export default class EditPointView {
-  #element = null;
+export default class EditPointView extends AbstractView {
   #point = null;
+  #handleClose = null;
 
-  constructor(point) {
+  constructor(point, onClose) {
+    super();
     this.#point = point;
+    this.#handleClose = onClose;
+    this.element.querySelector('.event__rollup-btn').addEventListener('click', this.#handleClose);
+    this.element.querySelector('.event--edit').addEventListener('submit', this.#formSubmitHandler);
   }
 
   get template () {
     return createEditPointTemplate(this.#point);
   }
 
-  get element () {
-    if (!this.#element) {
-      this.#element = createElement(this.template);
-    }
-    return this.#element;
-  }
-
-  get editButton () {
-    return this.element.querySelector('.event__rollup-btn');
-  }
-
-  get submitButton () {
-    return this.element.querySelector('.event--edit');
-  }
-
-  removeElement () {
-    this.#element = null;
-  }
+  #formSubmitHandler = (evt) => {
+    evt.preventDefault();
+    this.#handleClose();
+  };
 }
