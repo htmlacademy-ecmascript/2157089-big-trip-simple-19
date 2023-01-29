@@ -1,6 +1,6 @@
 import FilterView from './view/filter-view.js';
-import ListSortView from './view/List-Sort-View.js';
-import { render } from './render.js';
+//import ListSortView from './view/List-Sort-View.js';
+import { render } from './framework/render.js';
 import Presenter from './presenter/presenter.js';
 import PointsModel from './model/points-model.js';
 
@@ -16,5 +16,5 @@ const pointsModel = new PointsModel();
 const tripListPresenter = new Presenter(tripEventsElement, pointsModel);
 
 render(new FilterView(), tripControlsFiltersElement);
-render(new ListSortView(), tripEventsElement);
+//render(new ListSortView(), tripEventsElement);
 tripListPresenter.init();
