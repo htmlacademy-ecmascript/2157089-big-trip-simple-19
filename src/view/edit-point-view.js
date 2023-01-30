@@ -139,10 +139,10 @@ export default class EditPointView extends AbstractView {
   #point = null;
   #handleClose = null;
 
-  constructor(point, onClose) {
+  constructor(point, closeForm) {
     super();
     this.#point = point;
-    this.#handleClose = onClose;
+    this.#handleClose = closeForm;
     this.element.querySelector('.event__rollup-btn').addEventListener('click', this.#handleClose);
     this.element.querySelector('.event--edit').addEventListener('submit', this.#formSubmitHandler);
   }
