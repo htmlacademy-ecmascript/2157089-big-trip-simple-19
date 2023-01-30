@@ -1,7 +1,5 @@
 import PointsListView from '../view/point-list-view.js';
 import AddNewPointView from '../view/add-new-point-view.js';
-import EditPointView from '../view/edit-point-view.js';
-import PointView from '../view/point-view.js';
 import EmptyPointsView from '../view/empty-points-view.js';
 import ListSortView from '../view/list-sort-view.js';
 import { render } from '../framework/render.js';
