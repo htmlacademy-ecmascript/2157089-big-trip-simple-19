@@ -1,14 +1,15 @@
 import PointsListView from '../view/point-list-view.js';
 import AddNewPointView from '../view/add-new-point-view.js';
-import EditPointView from '../view/edit-point-view.js';
-import PointView from '../view/point-view.js';
 import EmptyPointsView from '../view/empty-points-view.js';
 import ListSortView from '../view/list-sort-view.js';
 import { render } from '../framework/render.js';
+import PointPresenter from './point-presenter.js';
 
 export default class PointsListPresenter {
   #pointListContainer = null;
   #pointsModel = null;
+
+  #pointPresenters = [];
 
   #points = [];
 
@@ -21,39 +22,19 @@ export default class PointsListPresenter {
     this.#pointsModel = pointsModel;
   }
 
-  #renderPoint (point) {
-    const escKeyDownHandler = (evt) => {
-      if (evt.key === 'Escape' || evt.key === 'Esc') {
-        evt.preventDefault();
-        replaceEditToPoint.call(this);
-        document.removeEventListener('keydown', escKeyDownHandler);
-      }
-    };
-
-    const pointComponent = new PointView(point, () => {
-      replacePointToEdit.call(this);
-      document.addEventListener('keydown', escKeyDownHandler);
+  #closeAllEdits = () => {
+    this.#pointPresenters.forEach((presenter) => {
+      presenter.resetView();
     });
+  };
 
-    const editPointComponent = new EditPointView(point, () => {
-      replaceEditToPoint.call(this);
-      document.removeEventListener('keydown', escKeyDownHandler);
-    });
-
-    function replacePointToEdit () {
-      this.#pointsListComponent.element.replaceChild(editPointComponent.element, pointComponent.element);
-    }
-
-    function replaceEditToPoint () {
-      this.#pointsListComponent.element.replaceChild(pointComponent.element, editPointComponent.element);
-    }
-
-    render(pointComponent, this.#pointsListComponent.element);
+  #renderPoint(point) {
+    const pointPresenter = new PointPresenter(this.#pointsListComponent.element, this.#closeAllEdits);
+    pointPresenter.init(point);
+    this.#pointPresenters.push(pointPresenter);
   }
 
-  init () {
-    this.#points = [...this.#pointsModel.points];
-
+  #renderBoard() {
     if(this.#points.length === 0) {
       render(this.#noPointsMessageComponent, this.#pointListContainer);
     }
@@ -64,6 +45,12 @@ export default class PointsListPresenter {
         this.#renderPoint(point);
       }
     }
+  }
+
+  init() {
+    this.#points = [...this.#pointsModel.points];
+
+    this.#renderBoard();
   }
 
 }
