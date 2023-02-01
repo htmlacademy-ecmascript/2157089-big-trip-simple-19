@@ -9,7 +9,7 @@ const Mode = {
 
 export default class PointPresenter {
   #pointListContainer = null;
-  #onCloseAllEdits = null;
+  #closeAllEdits = null;
 
   #pointComponent = null;
   #pointEditComponent = null;
@@ -18,9 +18,9 @@ export default class PointPresenter {
 
   #mode = Mode.DEFAULT;
 
-  constructor(pointListContainer, onCloseAllEdits) {
+  constructor(pointListContainer, closeAllEdits) {
     this.#pointListContainer = pointListContainer;
-    this.#onCloseAllEdits = onCloseAllEdits;
+    this.#closeAllEdits = closeAllEdits;
   }
 
   init(point) {
@@ -40,7 +40,7 @@ export default class PointPresenter {
   }
 
   #replacePointToEdit() {
-    this.#onCloseAllEdits();
+    this.#closeAllEdits();
     replace(this.#pointEditComponent, this.#pointComponent);
     document.addEventListener('keydown', this.#escKeyDownHandler);
     this.#mode = Mode.EDITING;
