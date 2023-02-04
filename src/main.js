@@ -1,18 +1,29 @@
-import FilterView from './view/filter-view.js';
-import { render } from './framework/render.js';
-import Presenter from './presenter/presenter.js';
+import ListPresenter from './presenter/list-presenter.js';
+import FilterPresenter from './presenter/filter-presenter.js';
 import PointsModel from './model/points-model.js';
+import FilterModel from './model/filter-model.js';
+import NewPointButton from './view/new-point-button-view.js';
 
-const tripMainElement = document.querySelector('.trip-main');
-const tripMainTripControlsElement = tripMainElement.querySelector('.trip-main__trip-controls');
-const tripControlsFiltersElement = tripMainTripControlsElement.querySelector('.trip-controls__filters');
-
-const bodyElement = document.querySelector('.page-body');
-const bodyPageMainElement = bodyElement.querySelector('.page-body__page-main');
-const tripEventsElement = bodyPageMainElement.querySelector('.trip-events');
-
+const siteTripElement = document.querySelector('.trip-events');
+const siteControlsElement = document.querySelector('.trip-controls__filters');
 const pointsModel = new PointsModel();
-const tripListPresenter = new Presenter(tripEventsElement, pointsModel);
+const filterModel = new FilterModel();
+const filterPresenter = new FilterPresenter({filterContainer: siteControlsElement, filterModel, pointsModel});
+const listPresenter = new ListPresenter({listContainer: siteTripElement, filterModel, pointsModel, onNewPointDestroy: handleNewPointFormClose});
 
-render(new FilterView(), tripControlsFiltersElement);
-tripListPresenter.init();
+
+const newPointButtonElement = new NewPointButton({
+  onClick: handleNewTaskButtonClick,
+});
+
+function handleNewPointFormClose() {
+  newPointButtonElement.element.disabled = false;
+}
+
+function handleNewTaskButtonClick() {
+  listPresenter.createPoint();
+  newPointButtonElement.element.disabled = true;
+}
+
+filterPresenter.init();
+listPresenter.init();

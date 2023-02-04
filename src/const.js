@@ -1,9 +1,23 @@
-const POINT_TYPES = ['taxi', 'bus', 'flight'];
+const SortType = {
+  DAY: 'day',
+  PRICE:'price'
+};
 
-const DATE_FORMAT_DAY_AND_MONTH = 'D MMMM';
-const DATE_FORMAT_TIME_ONLY = 'HH:mm';
-const DATE_FORMAT_DATE_AND_TIME = 'DD/MM/YY HH:mm';
+const FilterType = {
+  EVERYTHING: 'everything',
+  FUTURE: 'future',
+};
 
-const DESTINATIONS_COUNT = 5;
+const UserAction = {
+  UPDATE_POINT: 'UPDATE_POINT',
+  ADD_POINT: 'ADD_POINT',
+  DELETE_POINT: 'DELETE_POINT',
+};
 
-export { POINT_TYPES, DATE_FORMAT_DAY_AND_MONTH, DATE_FORMAT_TIME_ONLY, DESTINATIONS_COUNT, DATE_FORMAT_DATE_AND_TIME };
+const UpdateType = {
+  PATCH: 'PATCH',
+  MINOR: 'MINOR',
+  MAJOR: 'MAJOR',
+};
+
+export {SortType, UpdateType, UserAction, FilterType};
