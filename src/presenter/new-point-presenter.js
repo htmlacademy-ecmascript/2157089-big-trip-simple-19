@@ -1,33 +1,28 @@
 import { render, remove, RenderPosition } from '../framework/render.js';
-import NewPointFormView from '../view/new-point-button-view';
-import { nanoid } from 'nanoid';
+import AddNewPointView from '../view/add-new-point-view.js';
 import { UserAction, UpdateType } from '../const.js';
-import { offersByTypes } from '../mock/mockData.js';
-
 
 export default class NewPointPresenter {
   #listContainer = null;
   #handleDataChange = null;
   #handleDestroy = null;
-  #allOffers = offersByTypes;
-
-
-  #pointComponent = null;
+  #point = null;
   #newPointFormComponent = null;
 
   constructor({listContainer, onDataChange, onDestroy}) {
     this.#listContainer = listContainer;
     this.#handleDataChange = onDataChange;
     this.#handleDestroy = onDestroy;
-
   }
 
-  init() {
+  init(point) {
     if (this.#newPointFormComponent !== null) {
       return;
     }
 
-    this.#newPointFormComponent = new NewPointFormView({
+    this.#point = point;
+    this.#newPointFormComponent = new AddNewPointView({
+      point: this.#point,
       onFormSubmit: this.#handleFormSubmit,
       onDeleteClick: this.#handleDeleteClick
     });
@@ -49,15 +44,31 @@ export default class NewPointPresenter {
     document.removeEventListener('keydown', this.#escKeyDownHandler);
   }
 
+  setSaving() {
+    this.#newPointFormComponent.updateElement({
+      isDisabled: true,
+      isSaving: true,
+    });
+  }
+
+  setAborting() {
+    const resetFormState = () => {
+      this.#newPointFormComponent.updateElement({
+        isDisabled: false,
+        isSaving: false,
+        isDeleting: false,
+      });
+    };
+
+    this.#newPointFormComponent.shake(resetFormState);
+  }
 
   #handleFormSubmit = (point) => {
-    const offerByTypes = this.#allOffers.find((offer) => offer.type === point.type);
     this.#handleDataChange(
       UserAction.ADD_POINT,
-      UpdateType.MINOR,
-      {id: nanoid(), offerByTypes, ...point},
+      UpdateType.MAJOR,
+      point,
     );
-    this.destroy();
   };
 
   #handleDeleteClick = () => {
