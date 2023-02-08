@@ -1,4 +1,4 @@
-export default class NewPointButton {
+export default class NewPointButtonView {
   #element = null;
   #handleNewTaskButtonClick = null;
 

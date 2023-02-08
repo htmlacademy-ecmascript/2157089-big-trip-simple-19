@@ -1,5 +1,5 @@
 import AbstractView from '../framework/view/abstract-view.js';
-import { dayDate, dateTimeFrom, dateTimeTo, machineDayDate, machineDateTimeFrom, machineDateTimeTo } from '../utils';
+import { getDayDate, getDateTimeFrom, getDateTimeTo, getMachineDayDate, getMachineDateTimeFrom, getMachineDateTimeTo } from '../utils';
 
 const createSelectedOffersTemplate = (offers, pointTypeOffers) =>
   pointTypeOffers.offers.map((offer) =>
@@ -12,12 +12,12 @@ const createSelectedOffersTemplate = (offers, pointTypeOffers) =>
 
 const createPointTemplate = (point) => {
   const { basePrice, type, offers, dateTo, dateFrom, offerByTypes, destination } = point;
-  const pointTimeFrom = dateTimeFrom(dateFrom);
-  const pointTimeTo = dateTimeTo(dateTo);
-  const machinePointTimeFrom = machineDateTimeFrom(dateFrom);
-  const machinePointTimeTo = machineDateTimeTo(dateTo);
-  const pointDayDate = dayDate(dateFrom);
-  const machinePointDayDate = machineDayDate(dateFrom);
+  const pointTimeFrom = getDateTimeFrom(dateFrom);
+  const pointTimeTo = getDateTimeTo(dateTo);
+  const machinePointTimeFrom = getMachineDateTimeFrom(dateFrom);
+  const machinePointTimeTo = getMachineDateTimeTo(dateTo);
+  const pointDayDate = getDayDate(dateFrom);
+  const machinePointDayDate = getMachineDayDate(dateFrom);
   const selectOffersTemplate = createSelectedOffersTemplate(offers, offerByTypes);
 
   return (
