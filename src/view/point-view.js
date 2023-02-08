@@ -1,7 +1,6 @@
 import AbstractView from '../framework/view/abstract-view.js';
 import { dayDate, dateTimeFrom, dateTimeTo, machineDayDate, machineDateTimeFrom, machineDateTimeTo } from '../utils';
 
-
 const createSelectedOffersTemplate = (offers, pointTypeOffers) =>
   pointTypeOffers.offers.map((offer) =>
     offers.includes(offer.id) ?
@@ -10,7 +9,6 @@ const createSelectedOffersTemplate = (offers, pointTypeOffers) =>
         &plus;&euro;&nbsp;
         <span class="event__offer-price">${offer.price}</span>
         </li>` : '').join('');
-
 
 const createPointTemplate = (point) => {
   const { basePrice, type, offers, dateTo, dateFrom, offerByTypes, destination } = point;
@@ -42,7 +40,9 @@ const createPointTemplate = (point) => {
       </p>
       <h4 class="visually-hidden">Offers:</h4>
       <ul class="event__selected-offers">
+
       ${selectOffersTemplate}
+
       </ul>
       <button class="event__rollup-btn" type="button">
         <span class="visually-hidden">Open event</span>

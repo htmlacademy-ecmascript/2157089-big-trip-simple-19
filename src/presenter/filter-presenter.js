@@ -22,7 +22,6 @@ export default class FilterPresenter {
     return points;
   }
 
-
   init() {
     const points = this.points;
     const prevFilterComponent = this.#filterComponent;
@@ -39,7 +38,6 @@ export default class FilterPresenter {
     }
     replace(this.#filterComponent, prevFilterComponent);
     remove(prevFilterComponent);
-
   }
 
   #handleModelEvent = () => {

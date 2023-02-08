@@ -17,7 +17,6 @@ const filterModel = new FilterModel();
 const filterPresenter = new FilterPresenter({filterContainer: siteControlsElement, filterModel, pointsModel});
 const listPresenter = new ListPresenter({listContainer: siteTripElement, filterModel, pointsModel, onNewPointDestroy: handleNewPointFormClose});
 
-
 const newPointButtonElement = new NewPointButton({
   onClick: handleNewTaskButtonClick,
 });
