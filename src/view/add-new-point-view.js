@@ -1,5 +1,5 @@
 import AbstractStatefulView from '../framework/view/abstract-stateful-view.js';
-import { fullDateFrom, fullDateTo, firstLetterUp } from '../utils.js';
+import { getFullDateFrom, getFullDateTo, firstLetterUp } from '../utils.js';
 import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
 
@@ -30,8 +30,6 @@ const createSectionOffersTemplate = (type, offers, offerByTypes, isDisabled) => 
 
         </div>
       </section>`);
-  } else {
-    return '';
   }
 };
 
@@ -59,8 +57,6 @@ const createSectionDestinationTemplate = (destination) => {
     </div>
     </section>`
     );
-  } else {
-    return '';
   }
 };
 
@@ -82,8 +78,8 @@ const createEventTypeItemTemplate = (offersByTypes, type, ID, isDisabled) =>
 const createNewPointFormTemplate = (point) => {
   const { basePrice, dateFrom, dateTo, type, offers, offersByTypes, offerByTypes, destination, destinations, isDisabled, isSaving } = point;
   const ID = 1;
-  const pointDateTo = fullDateTo(dateTo);
-  const pointDateFrom = fullDateFrom(dateFrom);
+  const pointDateTo = getFullDateTo(dateTo);
+  const pointDateFrom = getFullDateFrom(dateFrom);
   const destinationNameTemplate = createDestinationNameTemplate(destinations);
   const eventTypeItemTemplate = createEventTypeItemTemplate(offersByTypes, type, ID, isDisabled);
   const sectionOffersTemplate = createSectionOffersTemplate(type, offers, offerByTypes, isDisabled);
@@ -155,7 +151,7 @@ const createNewPointFormTemplate = (point) => {
   );
 };
 
-export default class NewPointFormView extends AbstractStatefulView {
+export default class AddNewPointFormView extends AbstractStatefulView {
   #handleFormSubmit = null;
   #handleDeleteClick = null;
   #datepickerStart = null;
@@ -163,7 +159,7 @@ export default class NewPointFormView extends AbstractStatefulView {
 
   constructor({point, onFormSubmit, onDeleteClick}) {
     super();
-    this._setState(NewPointFormView.parsePointToState(point));
+    this._setState(AddNewPointFormView.parsePointToState(point));
     this.#handleFormSubmit = onFormSubmit;
     this.#handleDeleteClick = onDeleteClick;
 
@@ -251,12 +247,12 @@ export default class NewPointFormView extends AbstractStatefulView {
 
   #formSubmitHandler = (evt) => {
     evt.preventDefault();
-    this.#handleFormSubmit(NewPointFormView.parseStateToPoint(this._state));
+    this.#handleFormSubmit(AddNewPointFormView.parseStateToPoint(this._state));
   };
 
   #formDeleteClickHandler = (evt) => {
     evt.preventDefault();
-    this.#handleDeleteClick(NewPointFormView.parseStateToPoint(this._state));
+    this.#handleDeleteClick(AddNewPointFormView.parseStateToPoint(this._state));
   };
 
   #dateStartChangeHandler = ([userDate]) => {

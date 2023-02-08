@@ -224,8 +224,8 @@ export default class ListPresenter {
       this.#renderNoPointComponent();
     }
 
-    for (let i = 0; i < pointCount; i++) {
-      this.#renderPoint(points[i]);
+    for (const i of points) {
+      this.#renderPoint(i);
     }
 
     this.#isNewEventOpened = false;
