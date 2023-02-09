@@ -151,7 +151,7 @@ const createNewPointFormTemplate = (point) => {
   );
 };
 
-export default class AddNewPointFormView extends AbstractStatefulView {
+export default class AddNewPointView extends AbstractStatefulView {
   #handleFormSubmit = null;
   #handleDeleteClick = null;
   #datepickerStart = null;
@@ -159,7 +159,7 @@ export default class AddNewPointFormView extends AbstractStatefulView {
 
   constructor({point, onFormSubmit, onDeleteClick}) {
     super();
-    this._setState(AddNewPointFormView.parsePointToState(point));
+    this._setState(AddNewPointView.parsePointToState(point));
     this.#handleFormSubmit = onFormSubmit;
     this.#handleDeleteClick = onDeleteClick;
 
@@ -247,12 +247,12 @@ export default class AddNewPointFormView extends AbstractStatefulView {
 
   #formSubmitHandler = (evt) => {
     evt.preventDefault();
-    this.#handleFormSubmit(AddNewPointFormView.parseStateToPoint(this._state));
+    this.#handleFormSubmit(AddNewPointView.parseStateToPoint(this._state));
   };
 
   #formDeleteClickHandler = (evt) => {
     evt.preventDefault();
-    this.#handleDeleteClick(AddNewPointFormView.parseStateToPoint(this._state));
+    this.#handleDeleteClick(AddNewPointView.parseStateToPoint(this._state));
   };
 
   #dateStartChangeHandler = ([userDate]) => {
